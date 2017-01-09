@@ -1,9 +1,12 @@
 import React from 'react';
 import {
+  Button,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput
+  TextInput,
+  Slider,
+  View
 } from 'react-native';
 import {
   ExponentConfigView,
@@ -34,8 +37,6 @@ export default class SettingsScreen extends React.Component {
 
   _buildState() {
     let elapsedSecondsTodayLimit = DailyTimeLimitHandler.instance().elapsedSecondsTodayLimit();
-    console.log(`got elapsedSecondsTodayLimit`);
-    console.log(elapsedSecondsTodayLimit);
     let minutesAllowedPerDay = elapsedSecondsTodayLimit / 60;
     return {
       elapsedSeconds: GlobalTimer.instance().elapsedSeconds,
@@ -56,26 +57,35 @@ export default class SettingsScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={this.props.route.getContentContainerStyle()}>
         <Text>Time today:</Text>
-        <Text>{timeToday}</Text>
+        <Text style={{marginBottom: 20}}>{timeToday}</Text>
 
-        <Text style={{marginTop: 10, fontSize: 20, textAlign: 'center'}}>Ability to edit daily allowance coming soon</Text>
-
-{
-        // <Text>Minutes allowed per day:</Text>
-        // <TextInput
-        //   keyboardType='numeric'
-        //   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        //   onChangeText={(text) => this.onChangeText(text)}
-        //   value={this.state.minutesAllowedPerDay.toString()}
-        // />
-      }
+        <Text>Minutes allowed per day:</Text>
+        <SliderWithLabel
+          ref={(slider) => {this.slider = slider; }}
+          minimumValue={1}
+          maximumValue={180}
+          step={1}
+          value={this.state.minutesAllowedPerDay}
+          onSlidingComplete={this.onMinutesAllowedPerDaySlidingComplete}
+        />
+        <Button
+          title="Reset to default"
+          onPress={this._onPressResetToDefaultLimitButton}
+        />
       </ScrollView>
     );
   }
 
-  onChangeText(text) {
-    // TODO: update saved value, and update GlobalTimer; also need to read from saved value on app launch
-     this.setState({minutesAllowedPerDay: parseInt(text)});
+  _onPressResetToDefaultLimitButton = () => {
+    const defaultMinutesLimit = DailyTimeLimitHandler.defaultElapsedSecondsTodayLimit / 60;
+    this.onMinutesAllowedPerDaySlidingComplete(defaultMinutesLimit);
+    this.slider.setState({value: defaultMinutesLimit});
+  }
+
+  onMinutesAllowedPerDaySlidingComplete = (minutesLimit) => {
+     this.setState({minutesAllowedPerDay: minutesLimit});
+     const secondsLimit = minutesLimit * 60;
+     DailyTimeLimitHandler.instance().updateElapsedSecondsTodayLimit(secondsLimit);
   }
 }
 
@@ -83,4 +93,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  text: {
+    fontSize: 14,
+    textAlign: 'center',
+    fontWeight: '500',
+    margin: 10,
+  },
 });
+
+class SliderWithLabel extends React.Component {
+  static defaultProps = {
+    value: 0,
+  };
+
+  state = {
+    value: this.props.value,
+  };
+
+  render() {
+    return (
+      <View>
+        <Text style={styles.text} >
+          {this.state.value}
+        </Text>
+        <Slider
+          {...this.props}
+          onValueChange={(value) => this.setState({value: value})} />
+      </View>
+    );
+  }
+}

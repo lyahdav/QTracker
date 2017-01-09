@@ -16,6 +16,10 @@ export default class DailyTimeLimitHandler {
     return dailyTimeLimitHandlerSingleton;
   }
 
+  static get defaultElapsedSecondsTodayLimit() {
+    return DEFAULT_ELAPSED_SECONDS_TODAY_LIMIT;
+  }
+
   constructor() {
     this.elapsedSecondsTodayLimitFromStorage = null;
     this.fetchElapsedSecondsTodayLimitFromStorage();
@@ -26,12 +30,18 @@ export default class DailyTimeLimitHandler {
   }
 
   async fetchElapsedSecondsTodayLimitFromStorage() {
-    const elapsedSecondsTodayLimit = await AsyncStorage.getItem(ELAPSED_SECONDS_TODAY_LIMIT_KEY);
-    console.log(`elapsedSecondsTodayLimit = ${elapsedSecondsTodayLimit}`);
-    // TODO cleanup
-    const result = elapsedSecondsTodayLimit || DEFAULT_ELAPSED_SECONDS_TODAY_LIMIT;
-    console.log(`elapsedSecondsTodayLimit result = ${result}`);
-    this.elapsedSecondsTodayLimitFromStorage = result;
+    const elapsedSecondsTodayLimitString = await AsyncStorage.getItem(ELAPSED_SECONDS_TODAY_LIMIT_KEY);
+    let elapsedSecondsTodayLimit = DEFAULT_ELAPSED_SECONDS_TODAY_LIMIT;
+    if (elapsedSecondsTodayLimitString !== null) {
+      elapsedSecondsTodayLimit = parseInt(elapsedSecondsTodayLimitString);
+    }
+    this.elapsedSecondsTodayLimitFromStorage = elapsedSecondsTodayLimit;
+  }
+
+  async updateElapsedSecondsTodayLimit(secondsLimit) {
+    this.elapsedSecondsTodayLimitFromStorage = secondsLimit;
+    console.log(`setting secondsLimit = ${secondsLimit}`);
+    await AsyncStorage.setItem(ELAPSED_SECONDS_TODAY_LIMIT_KEY, secondsLimit.toString());
   }
 
   fire(elapsedSecondsToday) {
