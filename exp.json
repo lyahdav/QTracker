@@ -7,19 +7,23 @@
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
-  "iconUrl": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+  "iconUrl": "http://i.imgur.com/IYUu04T.png",
   "notification": {
-    "iconUrl": "https://s3.amazonaws.com/exp-us-standard/placeholder-push-icon-blue-circle.png",
+    "iconUrl": "http://i.imgur.com/IYUu04T.png",
     "color": "#000000"
   },
   "loading": {
-    "iconUrl": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+    "iconUrl": "http://i.imgur.com/IYUu04T.png",
     "hideExponentText": false
   },
   "packagerOpts": {
     "assetExts": ["ttf"]
   },
   "ios": {
-    "supportsTablet": true
+    "supportsTablet": true,
+    "bundleIdentifier": "com.yahdav.socialnetworktimetracker"
+  },
+  "android": {
+    "package": "com.yahdav.socialnetworktimetracker"
   }
 }

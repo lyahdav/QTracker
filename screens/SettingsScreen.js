@@ -12,6 +12,7 @@ import {
   ExponentConfigView,
 } from '@exponent/samples';
 
+import HyperLink from '../components/HyperLink';
 import GlobalTimer from '../utilities/GlobalTimer';
 import DailyTimeLimitHandler from '../utilities/DailyTimeLimitHandler';
 
@@ -32,7 +33,7 @@ export default class SettingsScreen extends React.Component {
   }
 
   fire(elapsedSecondsToday) {
-    this.setState({elapsedSeconds: elapsedSecondsToday});
+    this.setState({ elapsedSeconds: elapsedSecondsToday });
   }
 
   _buildState() {
@@ -57,11 +58,11 @@ export default class SettingsScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={this.props.route.getContentContainerStyle()}>
         <Text>Time today:</Text>
-        <Text style={{marginBottom: 20}}>{timeToday}</Text>
+        <Text style={{ marginBottom: 20 }}>{timeToday}</Text>
 
         <Text>Minutes allowed per day:</Text>
         <SliderWithLabel
-          ref={(slider) => {this.slider = slider; }}
+          ref={(slider) => { this.slider = slider; }}
           minimumValue={1}
           maximumValue={180}
           step={1}
@@ -72,6 +73,18 @@ export default class SettingsScreen extends React.Component {
           title="Reset to default"
           onPress={this._onPressResetToDefaultLimitButton}
         />
+        <View
+          style={{ backgroundColor: '#CCCCCC', height: 1, marginTop: 20 }}
+        />
+        <View style={{flexWrap: 'wrap', flex: 1, flexDirection: 'row', height: 20, marginTop: 20}}>
+          <Text>App Icon made by </Text>
+          <HyperLink url="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver" />
+          <Text> from </Text>
+          <HyperLink url="http://www.flaticon.com" title="www.flaticon.com" />
+          <Text> is licensed by </Text>
+          <HyperLink url="http://creativecommons.org/licenses/by/3.0/" title="CC 3.0 BY" />
+        </View>
+
       </ScrollView>
     );
   }
@@ -79,13 +92,13 @@ export default class SettingsScreen extends React.Component {
   _onPressResetToDefaultLimitButton = () => {
     const defaultMinutesLimit = DailyTimeLimitHandler.defaultElapsedSecondsTodayLimit / 60;
     this.onMinutesAllowedPerDaySlidingComplete(defaultMinutesLimit);
-    this.slider.setState({value: defaultMinutesLimit});
+    this.slider.setState({ value: defaultMinutesLimit });
   }
 
   onMinutesAllowedPerDaySlidingComplete = (minutesLimit) => {
-     this.setState({minutesAllowedPerDay: minutesLimit});
-     const secondsLimit = minutesLimit * 60;
-     DailyTimeLimitHandler.instance().updateElapsedSecondsTodayLimit(secondsLimit);
+    this.setState({ minutesAllowedPerDay: minutesLimit });
+    const secondsLimit = minutesLimit * 60;
+    DailyTimeLimitHandler.instance().updateElapsedSecondsTodayLimit(secondsLimit);
   }
 }
 
@@ -118,7 +131,7 @@ class SliderWithLabel extends React.Component {
         </Text>
         <Slider
           {...this.props}
-          onValueChange={(value) => this.setState({value: value})} />
+          onValueChange={(value) => this.setState({ value: value })} />
       </View>
     );
   }
