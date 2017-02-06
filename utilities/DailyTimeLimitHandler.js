@@ -3,6 +3,7 @@ const ELAPSED_SECONDS_TODAY_LIMIT_KEY = '@FacebookTimeTracker:elapsedSecondsToda
 
 import {
   AsyncStorage,
+  Alert
 } from 'react-native';
 
 let dailyTimeLimitHandlerSingleton = null;

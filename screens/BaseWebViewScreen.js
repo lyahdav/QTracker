@@ -34,20 +34,9 @@ class IconBarButton extends React.Component {
   }
 }
 
-let homeScreenSingleton = null; // TODO: find better way to do this
-
-export default class HomeScreen extends React.Component {
+export default class BaseWebViewScreen extends React.Component {
   constructor(props) {
     super(props);
-    homeScreenSingleton = this;
-  }
-
-  static route = {
-    navigationBar: {
-      title: 'Facebook',
-      renderLeft: (route, props) => homeScreenSingleton._renderNavBarLeft(),
-      renderRight: (route, props) => homeScreenSingleton._renderNavBarRight()
-    },
   }
 
   // TODO: should initially be false, see onNavigationStateChange for more
@@ -110,7 +99,7 @@ export default class HomeScreen extends React.Component {
     
     return (
       <WebView
-        source={{uri: 'http://facebook.com'}}
+        source={{uri: this.baseURL()}}
         injectedJavaScript={doorbellJS}
         style={{marginTop: 20}}
         ref={(webView) => {this.webView = webView; }}

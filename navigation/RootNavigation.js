@@ -59,6 +59,11 @@ export default class RootNavigation extends React.Component {
           <StackNavigation initialRoute="twitter" />
         </TabNavigationItem>
         <TabNavigationItem
+          id="instagram"
+          renderIcon={isSelected => this._renderIcon('instagram', isSelected)}>
+          <StackNavigation initialRoute="instagram" />
+        </TabNavigationItem>
+        <TabNavigationItem
           id="settings"
           title={this.state.elapsedSecondsToday}
           renderTitle={this._renderTitle}
