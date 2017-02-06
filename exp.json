@@ -1,7 +1,7 @@
 {
-  "name": "facebook-time-tracker",
-  "description": "No description",
-  "slug": "facebook-time-tracker",
+  "name": "social-network-time-tracker",
+  "description": "App to limit the amount of time you spend on Facebook, Twitter, and Instagram social networks.",
+  "slug": "social-network-time-tracker",
   "privacy": "public",
   "sdkVersion": "12.0.0",
   "version": "1.0.0",
