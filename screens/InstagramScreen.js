@@ -15,8 +15,8 @@ export default class InstagramScreen extends BaseWebViewScreen {
   static route = {
     navigationBar: {
       title: 'Instagram',
-      renderLeft: (route, props) => instagramScreenSingleton._renderNavBarLeft(),
-      renderRight: (route, props) => instagramScreenSingleton._renderNavBarRight()
+      renderLeft: (route, props) => instagramScreenSingleton.renderNavBarLeft(),
+      renderRight: (route, props) => instagramScreenSingleton.renderNavBarRight()
     },
   }
 }

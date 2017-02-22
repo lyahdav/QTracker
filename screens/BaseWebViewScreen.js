@@ -43,9 +43,10 @@ export default class BaseWebViewScreen extends React.Component {
   state = {
     backButtonEnabled: true,
     forwardButtonEnabled: true,
+    url: this.baseURL(),
   };
 
-  _renderNavBarLeft() {
+  renderNavBarLeft() {
     return (
       <View style={styles.buttonContainer}>
         <IconBarButton iconName="chevron-left" disabled={!this.state.backButtonEnabled} onPress={this._onPressBackButton}/>
@@ -54,11 +55,14 @@ export default class BaseWebViewScreen extends React.Component {
     );
   }
 
-  _renderNavBarRight() {
+  renderNavBarRight() {
     return (
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.navBarButton} onPress={this._onPressRefreshButton}>
           <Ionicons name="ios-refresh" size={32} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navBarButton} onPress={this._onPressHomeButton}>
+          <Entypo name="home" size={32} />
         </TouchableOpacity>
       </View>
     );
@@ -76,12 +80,25 @@ export default class BaseWebViewScreen extends React.Component {
     this.webView.reload();
   }
 
+  _onPressHomeButton = () => {
+    this.webView.source = {uri: 'http://google.com'};
+    // this.setState({
+    //   url: this.baseURL()
+    // });
+  }
+
   _onNavigationStateChange = (navState) => {
     // TODO: blocked by http://stackoverflow.com/questions/41512659/how-to-correctly-listen-to-navigation-changes-on-uiwebview
     // this.setState({
     //   backButtonEnabled: navState.canGoBack,
     //   forwardButtonEnabled: navState.canGoForward,
     // });
+
+    console.log(`nav change, setting state ${navState.url}`);
+
+    this.setState({
+      url: navState.url,
+    });
   }
 
   render() {
@@ -96,12 +113,11 @@ export default class BaseWebViewScreen extends React.Component {
             if (d.readyState == 'complete') { l(); }
         }(window, document, 'script'));
     `.trim();
-    
+
     return (
       <WebView
-        source={{uri: this.baseURL()}}
+        source={{uri: 'http://facebook.com'}}
         injectedJavaScript={doorbellJS}
-        style={{marginTop: 20}}
         ref={(webView) => {this.webView = webView; }}
         onNavigationStateChange={this._onNavigationStateChange}
     />

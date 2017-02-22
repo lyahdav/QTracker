@@ -9,14 +9,16 @@ export default class FacebookScreen extends BaseWebViewScreen {
   }
 
   baseURL() {
-    return 'http://facebook.com';
+    // TODO: this is purposely not 'https://m.facebook.com/' to get the home button to work correctly.
+    // It can be updated once we fix the TODO in BaseWebViewScreen._onNavigationStateChange
+    return 'https://m.facebook.com';
   }
 
   static route = {
     navigationBar: {
       title: 'Facebook',
-      renderLeft: (route, props) => facebookScreenSingleton._renderNavBarLeft(),
-      renderRight: (route, props) => facebookScreenSingleton._renderNavBarRight()
+      renderLeft: (route, props) => facebookScreenSingleton.renderNavBarLeft(),
+      renderRight: (route, props) => facebookScreenSingleton.renderNavBarRight()
     },
   }
 }

@@ -9,14 +9,14 @@ export default class TwitterScreen extends BaseWebViewScreen {
   }
 
   baseURL() {
-    return 'http://twitter.com';
+    return 'https://twitter.com/';
   }
 
   static route = {
     navigationBar: {
       title: 'Twitter',
-      renderLeft: (route, props) => twitterScreenSingleton._renderNavBarLeft(),
-      renderRight: (route, props) => twitterScreenSingleton._renderNavBarRight()
+      renderLeft: (route, props) => twitterScreenSingleton.renderNavBarLeft(),
+      renderRight: (route, props) => twitterScreenSingleton.renderNavBarRight()
     },
   }
 }
