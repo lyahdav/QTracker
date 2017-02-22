@@ -8,10 +8,11 @@ import {
   Text,
   TouchableOpacity,
   View,
-  WebView
+  WebView,
+  Share
 } from 'react-native';
 
-import { Entypo, Ionicons } from '@exponent/vector-icons';
+import { Entypo, Ionicons, EvilIcons } from '@exponent/vector-icons';
 
 import { MonoText } from '../components/StyledText';
 
@@ -37,6 +38,9 @@ class IconBarButton extends React.Component {
 export default class BaseWebViewScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    this.currentUrl = null;
+    this.currentTitle = null;
   }
 
   // TODO: should initially be false, see onNavigationStateChange for more
@@ -60,6 +64,9 @@ export default class BaseWebViewScreen extends React.Component {
         <TouchableOpacity style={styles.navBarButton} onPress={this._onPressRefreshButton}>
           <Ionicons name="ios-refresh" size={32} />
         </TouchableOpacity>
+        <TouchableOpacity style={styles.navBarButton} onPress={this._onPressShareButton}>
+          <EvilIcons name="share-apple" size={32} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -76,12 +83,22 @@ export default class BaseWebViewScreen extends React.Component {
     this.webView.reload();
   }
 
+  _onPressShareButton = () => {
+    Share.share({
+      message: this.currentUrl,
+      url: this.currentUrl,
+      title: this.currentTitle
+    });
+  }
+
   _onNavigationStateChange = (navState) => {
     // TODO: blocked by http://stackoverflow.com/questions/41512659/how-to-correctly-listen-to-navigation-changes-on-uiwebview
     // this.setState({
     //   backButtonEnabled: navState.canGoBack,
     //   forwardButtonEnabled: navState.canGoForward,
     // });
+    this.currentUrl = navState.url;
+    this.currentTitle = navState.title;
   }
 
   render() {
