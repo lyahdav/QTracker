@@ -7,3 +7,4 @@
 # Feel free to remove the following line if you use fastlane (which you should)
 
 app_identifier "com.yahdav.socialnetworktimetracker" # The bundle identifier of your app
+app_icon 'metadata/AppIcon.png'
