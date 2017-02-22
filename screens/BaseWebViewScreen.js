@@ -96,12 +96,11 @@ export default class BaseWebViewScreen extends React.Component {
             if (d.readyState == 'complete') { l(); }
         }(window, document, 'script'));
     `.trim();
-    
+
     return (
       <WebView
         source={{uri: this.baseURL()}}
         injectedJavaScript={doorbellJS}
-        style={{marginTop: 20}}
         ref={(webView) => {this.webView = webView; }}
         onNavigationStateChange={this._onNavigationStateChange}
     />
