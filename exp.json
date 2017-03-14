@@ -1,7 +1,7 @@
 {
-  "name": "Social Network Time Tracker",
+  "name": "QTracker",
   "description": "App to limit the amount of time you spend on Facebook, Twitter, and Instagram social networks.",
-  "slug": "social-network-time-tracker",
+  "slug": "qtracker",
   "privacy": "public",
   "sdkVersion": "12.0.0",
   "version": "1.0.0",
@@ -21,9 +21,9 @@
   },
   "ios": {
     "supportsTablet": true,
-    "bundleIdentifier": "com.yahdav.socialnetworktimetracker"
+    "bundleIdentifier": "com.yahdav.qtracker"
   },
   "android": {
-    "package": "com.yahdav.socialnetworktimetracker"
+    "package": "com.yahdav.qtracker"
   }
 }

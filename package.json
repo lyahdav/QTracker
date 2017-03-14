@@ -1,8 +1,8 @@
 {
-  "name": "social-network-time-tracker",
+  "name": "qtracker",
   "version": "0.0.0",
   "description": "App to limit the amount of time you spend on Facebook, Twitter, and Instagram social networks.",
-  "author": null,
+  "author": "Liron Yahdav",
   "main": "main.js",
   "scripts": {
     "test": "jest"
