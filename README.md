@@ -1,4 +1,4 @@
-# Social Network Time Tracker
+# QTracker
 A React Native app for tracking the time you spend on Facebook, Twitter, and Instagram.
 
 # Deploying via fastlane
